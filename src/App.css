@@ -1,38 +1,130 @@
-.App {
-  text-align: center;
+/* src/App.css */
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.background-animation {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* Home page background (animated gradient) */
+.home-bg .background-animation {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+/* About page background (floating shapes) */
+.about-bg .background-animation {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  overflow: hidden;
+}
+
+.about-bg .background-animation::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  top: -100px;
+  left: -100px;
+  animation: float 20s infinite;
+}
+
+.about-bg .background-animation::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  bottom: -50px;
+  right: -50px;
+  animation: float 15s infinite reverse;
+}
+
+/* Contact page background (particle animation) */
+.contact-bg .background-animation {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+}
+
+.contact-bg .background-animation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 5px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  animation: particles 20s infinite linear;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+/* Animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(20px, 40px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 80px) rotate(0deg);
+  }
+  75% {
+    transform: translate(-20px, 40px) rotate(-5deg);
+  }
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes particles {
   from {
-    transform: rotate(0deg);
+    transform: translateY(0px);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(550px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 15px;
   }
 }
